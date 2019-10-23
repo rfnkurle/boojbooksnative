@@ -17,3 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('books', 'ApiController@getAllBooks');
+Route::get('books/{id}', 'ApiController@getBook');
+Route::post('books', 'ApiController@createBook');
+Route::put('books/{id}', 'ApiController@updateBook');
+Route::delete('books/{id}','ApiController@deleteBook');
