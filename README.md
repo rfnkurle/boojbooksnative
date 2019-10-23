@@ -13,3 +13,4 @@ Requirements
 * Display a book detail page with a minimum of author, publication date, and title
 * Include unit tests
 * Deploy it on the cloud - be prepared to describe your process on deployment
+++++
