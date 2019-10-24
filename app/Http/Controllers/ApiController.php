@@ -4,11 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 
 //controller methods need to match api routes
 {
+    public function index()
+    {
+
+        $books = Book::get()->toJson(JSON_PRETTY_PRINT);
+        return response($books, 200);
+
+    
+    }
+
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
+
     public function getAllBooks() {
         $books = Book::get()->toJson(JSON_PRETTY_PRINT);
     return response($books, 200);

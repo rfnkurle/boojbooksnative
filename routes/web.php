@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+
+// Route::get('/', 'Controller@index')->name('home');
+                                                //any variable with regex so any character can match
+Route::get('/{any}', 'ApiController@index')->where('any','.*');
+
+// Route::resource('/tasks', 'TasksController');
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
