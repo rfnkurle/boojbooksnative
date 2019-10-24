@@ -22,6 +22,6 @@ Auth::routes();
 Route::get('/{any}', 'ApiController@index')->where('any','.*');
 
 // Route::resource('/tasks', 'TasksController');
-// Auth::routes();
+Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/', 'ApiController');

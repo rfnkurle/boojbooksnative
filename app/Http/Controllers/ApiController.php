@@ -13,10 +13,9 @@ class ApiController extends Controller
     public function index()
     {
 
-        $books = Book::get()->toJson(JSON_PRETTY_PRINT);
-        return response($books, 200);
+       
 
-    
+        return view('home');
     }
 
     public function __construct()
@@ -92,5 +91,28 @@ class ApiController extends Controller
             ], 404);
           }
       }
+
+      public function store(Request $request)
+    {
+        $request->validate([
+            'title'=> 'required',
+            'author'=> 'required',
+            'decription'=> 'required',
+            'publication'=> 'required'
+        ]);
+
+        $book = $request->user()->books()->create([
+            'title'=> $request->title,
+            'author'=> $request->author,
+            'description'=>$request->description,
+            'publication'=>$request->publication
+        ]);
+
+        return response()->json([
+           'book'=> $book,
+           'message'=> 'book has been created!'
+        ]);
+
+    }
     
 }

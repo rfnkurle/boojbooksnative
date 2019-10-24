@@ -1,7 +1,8 @@
 <template>
     <div>
-    <h1>Hi.</h1>
-
+        <div class="card">
+    <h1 class="card-header" style="text-align: center">Laravel Book API</h1>
+        </div>
     <router-view></router-view>
     </div>
 </template>
