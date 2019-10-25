@@ -101,17 +101,7 @@ class ApiController extends Controller
             'publication'=> 'required'
         ]);
 
-        $book = $request->user()->books()->create([
-            'title'=> $request->title,
-            'author'=> $request->author,
-            'description'=>$request->description,
-            'publication'=>$request->publication
-        ]);
-
-        return response()->json([
-           'book'=> $book,
-           'message'=> 'book has been created!'
-        ]);
+       
 
     }
     

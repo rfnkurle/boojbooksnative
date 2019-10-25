@@ -29535,34 +29535,174 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             book: {
-                title: '',
-                author: '',
-                description: '',
-                publication: ''
+
+                title: "",
+                author: "",
+                description: "",
+                publication: ""
             },
             books: [],
-            uri: "http://localhost:8000/api/books/"
+            uri: "http://localhost:8000/api/books/",
+            errors: [],
+            new_update_book: [],
+            image: 'images/loader1.gif',
+            loading: false
         };
     },
 
     methods: {
-        loadBooks: function loadBooks() {
+        loadCreateModal: function loadCreateModal() {
+            $("#create-modal").modal("show");
+        },
+        loadUpdateModal: function loadUpdateModal(index) {
+            this.errors = [];
+            $("#update-modal").modal("show");
+            this.new_update_book = this.books[index]; //assigns tasks to new_update_task
+        },
+        createBook: function createBook() {
             var _this = this;
 
-            axios.get(this.uri).then(function (response) {
-                _this.books = response.data.books;
-                _this.loading = true;
+            //axios call that takes name and body inputs and
+            // pushes them into tasks array,  backend controllers, then MySQL database
+            axios.post(this.uri, { title: this.book.title, author: this.book.author,
+
+                description: this.book.description, publication: this.book.publication }).then(function (response) {
+                _this.books.push(response.data.book);
+
+                _this.resetData();
+
+                $("#create-modal").modal("hide");
+            }).catch(function (error) {
+
+                _this.errors = [];
+
+                if (error.response.data.errors.title) {
+                    _this.errors.push(error.response.data.errors.title[0]);
+                }
+                if (error.response.data.errors.author) {
+                    _this.errors.push(error.response.data.errors.author[0]);
+                }
             });
+        },
+        deleteBook: function deleteBook(index) {
+            var _this2 = this;
+
+            //need to confirm if user needs to delete item from list/database
+            var confirmBox = confirm("Do you really want to delete this?");
+
+            if (confirmBox == true) {
+
+                axios.delete(this.uri + this.books[index].id).then(function (response) {
+
+                    _this2.$delete(_this2.books, index);
+                    toastr.success(response.data.message);
+                }).catch(function (error) {
+
+                    console.log("Could not delete...");
+                });
+            }
+        },
+        getAllBooks: function getAllBooks() {
+            var _this3 = this;
+
+            axios.get(this.uri).then(function (response) {
+                _this3.books = response.data.books;
+                _this3.loading = true;
+            });
+        },
+        resetData: function resetData() {
+
+            this.task.title = '';
+            this.task.author = '';
+            this.task.description = '';
+            this.task.publiction = '';
         }
     },
+
     mounted: function mounted() {
 
-        this.loadBooks();
+        this.getAllBooks();
         console.log("mounted");
     }
 });
@@ -29591,23 +29731,265 @@ var render = function() {
             _vm._m(1),
             _vm._v(" "),
             _c("tbody", [
-              _c("tr", [
-                _c("td", [_vm._v(_vm._s(_vm.id))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.book.title))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.book.author))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.book.description))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.book.publication))]),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._m(3)
-              ])
+              _c(
+                "tr",
+                { attrs: { "v-for": (_vm.book, _vm.index) in _vm.books } },
+                [
+                  _c("td", [_vm._v(_vm._s(_vm.index + 1))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.book.title))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.book.author))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.book.description))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.book.publication))]),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._m(3)
+                ]
+              )
             ])
-          ])
-        ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: { id: "create-modal", tabindex: "-1", role: "dialog" }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm.errors.length > 0
+                          ? _c("div", { staticClass: "alert alert-danger" }, [
+                              _c("ul", [
+                                _c(
+                                  "li",
+                                  {
+                                    attrs: { "v-for": _vm.error in _vm.errors }
+                                  },
+                                  [_vm._v(_vm._s(_vm.error))]
+                                )
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "Name" } }, [
+                          _vm._v("Name")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.book.name,
+                              expression: "book.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "name" },
+                          domProps: { value: _vm.book.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.book, "name", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "description" } }, [
+                          _vm._v("Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.book.description,
+                              expression: "book.description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "description" },
+                          domProps: { value: _vm.book.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.book,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", "data-dismiss": "modal" }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "button" },
+                          on: { click: _vm.createBook }
+                        },
+                        [_vm._v("Save changes")]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "update-modal",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm.errors.length > 0
+                      ? _c("div", { staticClass: "alert alert-danger" }, [
+                          _c("ul", [
+                            _c(
+                              "li",
+                              { attrs: { "v-for": _vm.error in _vm.errors } },
+                              [_vm._v(_vm._s(_vm.error))]
+                            )
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.new_update_book.name,
+                            expression: "new_update_book.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "name" },
+                        domProps: { value: _vm.new_update_book.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.new_update_book,
+                              "name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "description" } }, [
+                        _vm._v("Description")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.new_update_book.description,
+                            expression: "new_update_book.description"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "description" },
+                        domProps: { value: _vm.new_update_book.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.new_update_book,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateBook }
+                      },
+                      [_vm._v("Save changes")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ])
     ])
   ])
@@ -29655,6 +30037,52 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("td", [
       _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Delete")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add a Book")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Update Modal")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
