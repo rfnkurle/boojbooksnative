@@ -14,3 +14,18 @@ Requirements
 * Include unit tests
 * Deploy it on the cloud - be prepared to describe your process on deployment
 ++++
+
+
+
+-----rfnkurle-----
+
+Current Functionality
+1. Working PHP/Laravel backend using a MySQL server with books table showing the book title, author, description, and publication date.
+
+2. Homemade Laravel API that can Add, Read, Update and Delete books from table/list.
+	
+Next steps: 
+1. Finish rendering API book data to Vue front-end, add move and sort functionality and render a book description when book is selected.
+
+2. Use initial Vue app as template to code in Nativescript emulator environment and deploy.
+
