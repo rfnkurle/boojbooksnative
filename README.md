@@ -7,6 +7,10 @@ Current Functionality
 
 2. Homemade Laravel API that can Add, Read, Update and Delete books from table/list, verified through Postman.
 	
+Current work
+
+- Basic rendering of book API to Vue front-end.
+
 Next steps: 
 1. Finish rendering API book data to Vue front-end, add move and sort functionality and render a book description when book is selected.
 
