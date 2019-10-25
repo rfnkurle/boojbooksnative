@@ -1,5 +1,19 @@
 # booj books native
 
+-----rfnkurle-----
+
+Current Functionality
+1. Working PHP/Laravel backend using a MySQL server with books table showing the book title, author, description, and publication date.
+
+2. Homemade Laravel API that can Add, Read, Update and Delete books from table/list, verified through Postman.
+	
+Next steps: 
+1. Finish rendering API book data to Vue front-end, add move and sort functionality and render a book description when book is selected.
+
+2. Use initial Vue app as template to code in Nativescript emulator environment and deploy.
+
+-----------------------
+
 *Beware of the person of one book. -- Thomas Aquinas*
 ## Task
 Compose a native application using the [Laravel](https://laravel.com/) framework and Nativescript (https://www.nativescript.org/) that allows the user to create a list of books they would like to read. Please fork this repo.
@@ -17,15 +31,6 @@ Requirements
 
 
 
------rfnkurle-----
 
-Current Functionality
-1. Working PHP/Laravel backend using a MySQL server with books table showing the book title, author, description, and publication date.
 
-2. Homemade Laravel API that can Add, Read, Update and Delete books from table/list.
-	
-Next steps: 
-1. Finish rendering API book data to Vue front-end, add move and sort functionality and render a book description when book is selected.
-
-2. Use initial Vue app as template to code in Nativescript emulator environment and deploy.
 
