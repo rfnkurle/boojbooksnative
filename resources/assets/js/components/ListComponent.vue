@@ -57,12 +57,12 @@
                     </div>
 
               <label for="Name">Name</label>
-              <!-- vue modal inputs on data() -- task.name -->
+              <!-- vue modal inputs on data() - -->
               <input v-model="book.name" type="text" id="name" class="form-control" />
             </div>
             <div class="form-group">
               <label for="description">Description</label>
-              <!-- vue modal inputs on data method task.body -->
+              <!-- vue modal inputs on data method book.body -->
               <input v-model="book.description" type="text" id="description" class="form-control" />
             </div>
           </div>
@@ -205,10 +205,10 @@
         },
         resetData(){
 
-                this.task.title = '';
-                this.task.author = '';
-                this.task.description= '';
-                this.task.publiction= '';
+                this.book.title = '';
+                this.book.author = '';
+                this.book.description= '';
+                this.book.publiction= '';
 
             }
   
